@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom';
-import { NavLink } from 'react-router-dom';
-
-import { Card, Icon, Avatar } from 'antd';
-const { Meta } = Card;
+import { Card} from 'antd';
 
 export default class CourseItem extends Component {
     render() {
@@ -23,7 +20,7 @@ export default class CourseItem extends Component {
             >
                 <div className="desc">
                     <h6>
-                        <a href="/course-detail">Course Name</a>
+                        <a href="/course-detail">Name</a>
                     </h6>
                     <span>Description</span>
                 </div>

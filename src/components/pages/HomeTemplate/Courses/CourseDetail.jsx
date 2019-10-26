@@ -1,32 +1,53 @@
-import React, { Component } from 'react'
-import { Breadcrumb, Icon, Tabs } from 'antd';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Breadcrumb, Tabs } from 'antd';
 import CourseOwlCarousel from './CourseOwlCarousel';
-const { TabPane } = Tabs;
 
+//connect redux
+import { connect } from 'react-redux';
+
+//Tabpane
+const { TabPane } = Tabs;
 function callback(key) {
-    console.log(key);
+    // console.log(key);
 }
 
 export default class CourseDetail extends Component {
+    constructor(props) {
+        super(props);
+    }
     render() {
+        let { maKhoaHoc } = this.props.match.params;
         return (
             <div className="course-details">
                 <div className="breadcr mb-5 ml-5 mr-5">
                     <Breadcrumb>
                         <Breadcrumb.Item>
-                            <a href="/">Home</a>
+                            <Link exact to="/">Trang chủ</Link>
                         </Breadcrumb.Item>
                         <Breadcrumb.Item>
-                            <a href="/course-list">Front End</a>
+                            <Link exact to={'/all-course'}>Khóa học</Link>
                         </Breadcrumb.Item>
                         <Breadcrumb.Item>
-                            FE24
+                            Tên danh mục
+                        </Breadcrumb.Item>
+                        <Breadcrumb.Item>
+                            Tên khóa học
                         </Breadcrumb.Item>
                     </Breadcrumb>
                 </div>
                 <div className="container">
                     <div className="row">
-                        <div className="col-9">
+                        <div className="col-4">
+                            <div className="course-info">
+                                <h4>Thông tin khóa học</h4>
+                                <p>Giảng viên: Nguyen Minh Thuy</p>
+                                <p>Học phí: $100 USD</p>
+                                <p>Số lượng: 15</p>
+                                <p>Thời gian học: 15pm-17pm</p>
+                            </div>
+                        </div>
+                        <div className="col-8">
                             <Tabs defaultActiveKey="1" onChange={callback}>
                                 <TabPane tab="Objectives" key="1">
                                     Objectives
@@ -42,19 +63,11 @@ export default class CourseDetail extends Component {
                                 </TabPane>
                             </Tabs>
                         </div>
-                        <div className="col-3">
-                            <div className="course-info">
-                                <h4>Information</h4>
-                                <p>Trainer name: Nguyen Minh Thuy</p>
-                                <p>Course Fee: $100 USD</p>
-                                <p>Available Seats: 15</p>
-                                <p>Schedule: 15pm-17pm</p>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
                 <div>
-                    <CourseOwlCarousel/>
+                    <CourseOwlCarousel />
                 </div>
             </div>
 

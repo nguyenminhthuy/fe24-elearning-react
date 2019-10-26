@@ -8,6 +8,7 @@ import Login from './components/pages/HomeTemplate/Form/LogIn';
 import Register from './components/pages/HomeTemplate/Form/Register';
 import CourseList from './components/pages/HomeTemplate/Courses/CourseList';
 import CourseDetail from './components/pages/HomeTemplate/Courses/CourseDetail';
+import AllCourses from './components/pages/HomeTemplate/Courses/AllCourses';
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
       <Fragment>
         <Switch>
           <HomeTemplate exact path='/course-list/:maDanhMuc' Component={CourseList} />
-          <HomeTemplate exact path='/course-detail' Component={CourseDetail} />
+          <HomeTemplate exact path='/course-detail/:maKhoaHoc' Component={CourseDetail} />
+          <HomeTemplate exact path='/all-course' Component={AllCourses} />
           <HomeTemplate exact path='/register' Component={Register} />
           <HomeTemplate exact path='/login' Component={Login} />
           <HomeTemplate exact path='/' Component={HomePage} />
