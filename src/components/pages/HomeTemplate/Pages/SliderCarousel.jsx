@@ -14,13 +14,13 @@ export default class SliderCarousel extends Component {
                 {/* The slideshow */}
                 <div className="carousel-inner">
                     <div className="carousel-item active">
-                        <img src={require('../../../../img/banner1.jpg')} />
+                        <img src={require('../../../../img/b1.png')} />
                     </div>
                     <div className="carousel-item">
-                        <img src={require('../../../../img/banner2.jpg')} />
+                        <img src={require('../../../../img/b2.jpg')} />
                     </div>
                     <div className="carousel-item">
-                        <img src={require('../../../../img/banner3.jpg')} />
+                        <img src={require('../../../../img/b3.jpg')} />
                     </div>
                 </div>
                 {/* Left and right controls */}

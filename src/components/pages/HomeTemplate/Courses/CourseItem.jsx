@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom';
 import { Card} from 'antd';
 
 export default class CourseItem extends Component {

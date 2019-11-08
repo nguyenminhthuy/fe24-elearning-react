@@ -4,7 +4,9 @@ import { number } from 'prop-types';
 const initialState = {
     courseCategory:[],
     courseList:[],
-    courseByCat:[]
+    courseByCat:[],
+    courseDetailByID:{},
+    courseListBySearch:[]
   }
 
   export const ManagerCoursesReducer = (state = initialState, action) => {
@@ -19,6 +21,14 @@ const initialState = {
     }
     case types.GET_COURSE_BY_CAT: {
       state.courseByCat = action.courseByCat;
+      return {...state}
+    }
+    case types.GET_COURSE_DETAIL: {
+      state.courseDetailByID = action.courseDetailByID;
+      return {...state}
+    }
+    case types.GET_COURSE_LIST_BY_SEARCH: {
+      state.courseListBySearch = action.courseListBySearch;
       return {...state}
     }
     default:

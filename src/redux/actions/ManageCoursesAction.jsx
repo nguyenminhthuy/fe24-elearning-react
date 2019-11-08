@@ -51,3 +51,36 @@ export const getCoursesByCatAction = (courseCat) => {
         })
     }
 }
+
+export const getCoursesDetailAction = (courseID) => {
+    return dispatch => {
+        axios({
+            url: settings.domain + `/QuanLyKhoaHoc/LayThongTinKhoaHoc?maKhoaHoc=${courseID}`,
+            method: 'GET'
+        }).then(result => {
+            dispatch({
+                type: types.GET_COURSE_DETAIL,
+                courseDetailByID: result.data
+            })            
+        }).catch((errors) => {
+            console.log(errors.response.data);
+        })
+    }
+}
+
+export const getCoursesListByKeySearchAction = (keySearch) => {
+    return dispatch => {
+        axios({
+            url: settings.domain + `/QuanLyKhoaHoc/LayDanhSachKhoaHoc?tenKhoaHoc=${keySearch}&MaNhom=${settings.groupID}`,
+            method: 'GET'
+        }).then(result => {
+            // console.log(result);
+            dispatch({
+                type: types.GET_COURSE_LIST_BY_SEARCH,
+                courseListBySearch: result.data
+            })
+        }).catch((errors) => {
+            console.log(errors.response.data);
+        })
+    }
+}

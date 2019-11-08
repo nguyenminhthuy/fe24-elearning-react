@@ -77,7 +77,8 @@ class CourseOwlCarousel extends PureComponent {
                     slidesToShow={4}
                     scrollOnDevice={true}
                     loop
-                >                    
+                >       
+                
                     <div>
                         <CourseItem />
                     </div>

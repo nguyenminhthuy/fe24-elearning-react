@@ -1,12 +1,14 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Breadcrumb, Card } from 'antd';
+import { Card } from 'antd';
+import CourseItem from './CourseItem';
 
 //connect redux
 import { connect } from 'react-redux';
 import { getCoursesListAction } from '../../../../redux/actions/ManageCoursesAction';
 
-class AllCourses extends Component {
+class CoursePopular extends Component {
+
     constructor(props) {
         super(props);
     }
@@ -15,8 +17,8 @@ class AllCourses extends Component {
         this.props.getCoursesList();
     }
 
-    renderAllCourse() {
-        return this.props.courseList.map((courseLst, index) => {
+    renderAllCourseLimited8() {
+        return this.props.courseList.slice(0, 8).map((courseLst, index) => {
             return (
                 <div className="col-3 mb-5" key={index}>
                     <Card
@@ -45,30 +47,26 @@ class AllCourses extends Component {
     }
 
     render() {
+
+        // let obj = this.props.coursePopular;
+        // console.log(obj);
+        // var obj2 = new Object(obj.items);
+        // console.log(obj2);
+
         return (
-            <div className="course-list">
-                <div className="container mb-2 ml-5 mr-5">
-                    <Breadcrumb>
-                        <Breadcrumb.Item>
-                            <Link exact to="/">Trang chủ</Link>
-                        </Breadcrumb.Item>
-                        <Breadcrumb.Item>
-                            Khóa học
-                        </Breadcrumb.Item>
-                    </Breadcrumb>
-                </div>
-                <div className="course-title">
-                    <h3>Tất cả khóa học</h3>
-                </div>
-                <div className="row m-5">
-                    {this.renderAllCourse()}
+            <div>
+                <h2 className="m-5 text-center">Các khóa học phổ biến</h2>
+                <div >
+                    <div className="row mb-2 ml-5 mr-5">
+                        {this.renderAllCourseLimited8()}
+                    </div>
                 </div>
             </div>
         )
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
     return {
         courseList: state.ManagerCoursesReducer.courseList
     }
@@ -81,4 +79,4 @@ const mapDispatchToProp = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProp)(AllCourses);
+export default connect(mapStateToProps, mapDispatchToProp)(CoursePopular);

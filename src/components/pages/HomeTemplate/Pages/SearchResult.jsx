@@ -4,19 +4,22 @@ import { Breadcrumb, Card } from 'antd';
 
 //connect redux
 import { connect } from 'react-redux';
-import { getCoursesListAction } from '../../../../redux/actions/ManageCoursesAction';
+import { getCoursesListByKeySearchAction } from '../../../../redux/actions/ManageCoursesAction';
 
-class AllCourses extends Component {
+
+class SearchResult extends Component {
+
     constructor(props) {
         super(props);
     }
 
     componentDidMount() {
-        this.props.getCoursesList();
+        let { keySearch } = this.props.match.params;
+        this.props.getCoursesListByKeySearch(keySearch);
     }
 
-    renderAllCourse() {
-        return this.props.courseList.map((courseLst, index) => {
+    renderSearchResult() {
+        return this.props.courseListBySearch.map((courseLst, index) => {
             return (
                 <div className="col-3 mb-5" key={index}>
                     <Card
@@ -44,7 +47,7 @@ class AllCourses extends Component {
         })
     }
 
-    render() {
+    render() {        
         return (
             <div className="course-list">
                 <div className="container mb-2 ml-5 mr-5">
@@ -53,15 +56,15 @@ class AllCourses extends Component {
                             <Link exact to="/">Trang chủ</Link>
                         </Breadcrumb.Item>
                         <Breadcrumb.Item>
-                            Khóa học
+                            Kết quả tìm kiếm
                         </Breadcrumb.Item>
                     </Breadcrumb>
                 </div>
                 <div className="course-title">
-                    <h3>Tất cả khóa học</h3>
+                    <h3>Danh sách khóa học</h3>
                 </div>
                 <div className="row m-5">
-                    {this.renderAllCourse()}
+                    {this.renderSearchResult()}
                 </div>
             </div>
         )
@@ -70,15 +73,15 @@ class AllCourses extends Component {
 
 const mapStateToProps = state => {
     return {
-        courseList: state.ManagerCoursesReducer.courseList
+        courseListBySearch: state.ManagerCoursesReducer.courseListBySearch
     }
 }
 const mapDispatchToProp = (dispatch) => {
     return {
-        getCoursesList: () => {
-            dispatch(getCoursesListAction());
+        getCoursesListByKeySearch: (keySearch) => {
+            dispatch(getCoursesListByKeySearchAction(keySearch));
         }
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProp)(AllCourses);
+export default connect(mapStateToProps, mapDispatchToProp)(SearchResult);

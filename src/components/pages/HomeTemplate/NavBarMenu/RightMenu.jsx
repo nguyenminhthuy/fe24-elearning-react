@@ -1,30 +1,35 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-import { Menu, Icon, Input, Modal, Button } from 'antd';
+import { NavLink, withRouter } from 'react-router-dom';
+import { Menu, Input } from 'antd';
 const { Search } = Input;
-const SubMenu = Menu.SubMenu;
 
 class RightMenu extends Component {
 
+  constructor(props) {
+    super(props);
+  }
+
   render() {
+
     return (
       <div>
         <div className="right-menu">
           <Menu mode="horizontal">
-            <SubMenu title={<span><i className="fa fa-search" aria-hidden="true"></i></span>}>
+            <Menu.Item>
               <Search
-                placeholder="Search for courses"
-                onSearch={value => console.log(value)}
+                placeholder="Tìm kiếm khóa học"
+                // onSearch={value => console.log(value)}
+                onSearch={keySearch => this.props.history.push('/search-result/' + keySearch)}
                 style={{ width: 200 }}
               />
-            </SubMenu>
+            </Menu.Item>
             <Menu.Item>
               <a href="">
                 <i className="fa fa-shopping-cart fa-lg" aria-hidden="true"></i>
               </a>
             </Menu.Item>
             <Menu.Item>
-              <NavLink exact to='/login' className="nav-link" href="#">Log In</NavLink>
+              <NavLink exact to='/login' className="nav-link" href="#">Đăng nhập</NavLink>
             </Menu.Item>
           </Menu>
         </div>
@@ -32,4 +37,4 @@ class RightMenu extends Component {
     );
   }
 }
-export default RightMenu;
+export default withRouter(RightMenu);

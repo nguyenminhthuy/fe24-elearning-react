@@ -55,7 +55,7 @@ class CourseList extends Component {
                         }
                         actions={[
                             <span>{catID.luotXem} lượt xem</span>,
-                            <span>Xem Chi tiết</span>
+                            <Link exact to={'/course-detail/' + catID.maKhoaHoc}>Xem chi tiết</Link>
                         ]}
                     >
                         <div className="desc">
@@ -82,7 +82,7 @@ class CourseList extends Component {
                 {numberCourseByCat >= 1 ?
                     <div>
                         <div className="course-title">
-                            <h3>Tất cả các khóa học</h3>
+                            <h3>Danh sách khóa học</h3>
                         </div>
                         <div className="row m-5">
                             {this.renderCourseByCategory()}
