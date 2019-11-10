@@ -26,7 +26,9 @@ class NavBarMenu extends Component {
 			<nav className="menuBar">
 				<div className="logo">
 					<NavLink exact to='/' className="nav-link" href="#">
-						<img src={require('../../../../img/logo.png')} style={{ width: "100%" }} />
+						<img src={require('../../../../img/logo.png')} 
+						style={{ width: "100%" }} 
+						alt={require('../../../../img/logo.png')}/>
 					</NavLink>
 				</div>
 				<div className="menuCon">

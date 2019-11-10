@@ -1,16 +1,14 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import { Breadcrumb, Card } from 'antd';
+
 //connect redux
 import { connect } from 'react-redux';
 import { getCoursesCategoryAction } from '../../../../redux/actions/ManageCoursesAction';
 import { getCoursesByCatAction } from '../../../../redux/actions/ManageCoursesAction';
 
 class CourseList extends Component {
-    constructor(props) {
-        super(props);
-    }
-
+    
     componentDidMount() {
         this.props.getCoursesCategory();
         let { maDanhMuc } = this.props.match.params;

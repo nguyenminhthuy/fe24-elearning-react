@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Menu, Icon, Input, Dropdown, Button } from 'antd';
+import { Menu } from 'antd';
 
 //connect redux
 import { connect } from 'react-redux';
 import { getCoursesCategoryAction } from '../../../../redux/actions/ManageCoursesAction';
 
 const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
 
 class LeftMenu extends Component {  
   constructor(props) {
@@ -28,8 +27,6 @@ class LeftMenu extends Component {
             {this.props.courseCategory.map((courseCat, index) => {
               return (
                 <Menu.Item key={index}>
-                  {/* <NavLink exact to={'/course-list/' + courseCat.maDanhMuc} className="nav-link pb-0" href="#">
-                    {courseCat.tenDanhMuc}</NavLink> */}
                     <a href={'/course-list/' + courseCat.maDanhMuc} className="nav-link pb-0">{courseCat.tenDanhMuc}</a>
                 </Menu.Item>
               )

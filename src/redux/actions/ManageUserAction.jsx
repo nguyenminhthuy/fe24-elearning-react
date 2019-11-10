@@ -1,21 +1,37 @@
 import axios from 'axios';
-import * as types from '../constants/ManageUserConstant';
 import { settings } from '../../config/setting'
 
-export const loginAction = (accountInfo) => {
-  return dispatch => {
+export const loginAction = (userLogin) => {
+  return () => {
     axios({
       url: settings.domain + `/QuanLyNguoiDung/DangNhap`,
       method: 'POST',
       data: {
-        taiKhoan: accountInfo.txtUsername,
-        matKhau: accountInfo.txtPassword
+        taiKhoan: userLogin.txtUsername,
+        matKhau: userLogin.txtPassword
       }
     }).then(result => {
-      console.log(result.data);
-      //Đăng nhập thành công
-      localStorage.setItem(settings.accountInfo, JSON.stringify(result.data));
+      // console.log(result.data);
+      localStorage.setItem(settings.userLogin, JSON.stringify(result.data));
       localStorage.setItem(settings.token, result.data.accessToken);
+    }).catch(errors => {
+      // console.log(errors.response.data)
+      alert(errors.response.data)
+    })
+  }
+}
+
+export const signUpAction = (userSignUp) => {
+  return () => {
+    axios({
+      url: settings.domain + `/QuanLyNguoiDung/ThemNguoiDung`,
+      method: 'POST',
+      data: userSignUp,
+      headers:{
+        Authorization:'Bearer ' + localStorage.getItem(settings.token)
+      }
+    }).then(result => {
+      console.log(result.data);      
     }).catch(errors => {
       console.log(errors.response.data)
     })

@@ -14,10 +14,7 @@ function callback() {
 }
 
 class CourseDetail extends Component {
-    constructor(props) {
-        super(props);
-    }
-
+    
     componentDidMount() {
         let { maKhoaHoc } = this.props.match.params;
         this.props.getCoursesDetail(maKhoaHoc);

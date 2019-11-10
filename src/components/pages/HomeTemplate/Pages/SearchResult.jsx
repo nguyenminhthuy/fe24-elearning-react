@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { Link } from 'react-router-dom';
 import { Breadcrumb, Card } from 'antd';
 
@@ -7,11 +7,7 @@ import { connect } from 'react-redux';
 import { getCoursesListByKeySearchAction } from '../../../../redux/actions/ManageCoursesAction';
 
 
-class SearchResult extends Component {
-
-    constructor(props) {
-        super(props);
-    }
+class SearchResult extends PureComponent {
 
     componentDidMount() {
         let { keySearch } = this.props.match.params;

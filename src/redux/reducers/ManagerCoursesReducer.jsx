@@ -1,5 +1,4 @@
 import * as types from '../constants/ManageCoursesConstant';
-import { number } from 'prop-types';
 
 const initialState = {
     courseCategory:[],

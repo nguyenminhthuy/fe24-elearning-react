@@ -7,10 +7,7 @@ import { connect } from 'react-redux';
 import { getCoursesListAction } from '../../../../redux/actions/ManageCoursesAction';
 
 class AllCourses extends Component {
-    constructor(props) {
-        super(props);
-    }
-
+    
     componentDidMount() {
         this.props.getCoursesList();
     }

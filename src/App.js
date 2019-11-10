@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.scss';
 import HomePage from './components/pages/HomeTemplate/HomePage';
@@ -24,6 +25,7 @@ function App() {
           <HomeTemplate exact path='/login' Component={Login} />
           <HomeTemplate exact path='/search-result/:keySearch' Component={SearchResult} />
           <HomeTemplate exact path='/' Component={HomePage} />
+          <Redirect to='/'/>
         </Switch>
       </Fragment>
     </BrowserRouter>
