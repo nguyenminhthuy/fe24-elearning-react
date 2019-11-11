@@ -5,7 +5,6 @@ import { Menu, Input, Dropdown, Icon, Avatar } from 'antd';
 const { Search } = Input;
 
 const normalUser = (
-
   <Menu>
     <Menu.Item key="0">
       <a target="_blank" rel="noopener noreferrer" href="#">
@@ -23,7 +22,6 @@ const normalUser = (
 );
 
 const adminUser = (
-
   <Menu>
     <Menu.Item key="0">
       <a target="_blank" rel="noopener noreferrer" href="#">

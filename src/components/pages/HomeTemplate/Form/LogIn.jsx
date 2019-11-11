@@ -52,10 +52,6 @@ class Login extends React.Component {
     handleOnSubmit = (e) => {
         e.preventDefault();
         this.props.login(this.state.userLogin);
-        window.location.href = '/';
-        // this.props.history.replace('/');
-        // window.parent.location = window.parent.location.href;
-        // window.location.reload(); 
     };
 
     render() {

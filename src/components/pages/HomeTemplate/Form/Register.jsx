@@ -22,8 +22,7 @@ class Register extends React.Component {
                 txtName: '',
                 txtPhone: '',
                 txtEmail: '',
-                maLoaiNguoiDung: "HV",
-                maNhom:"GP01"
+                maNhom: settings.groupID
             },
             errors: {
                 txtUsername: '',
@@ -64,31 +63,29 @@ class Register extends React.Component {
         }
         this.setState({
             errors: { ...this.state.errors, [name]: errorMessage }
-        }, () => { 
+        }, () => {
             // console.log(this.state) 
         })
     }
 
     handleOnSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state.userSignUp);
-        // let userSignUp={
-        //     taiKhoan:"this.state.userSignUp.txtUsername.value",
-        //     matKhau:this.state.userSignUp.txtPassword.value,
-        //     hoTen:this.state.userSignUp.txtName.value,
-        //     soDT:this.state.userSignUp.txtPhone.value,
-        //     maLoaiNguoiDung:this.state.userSignUp.maLoaiNguoiDung,
-        //     maNhom:settings.groupID,
-        //     email:this.state.userSignUp.txtEmail.value
-        // }
-        this.props.signUp(this.state.userSignUp);
+        let userSignUp = {
+            taiKhoan: this.state.userSignUp.txtUsername,
+            matKhau: this.state.userSignUp.txtPassword,
+            hoTen: this.state.userSignUp.txtName,
+            soDT: this.state.userSignUp.txtPhone,
+            maNhom: settings.groupID,
+            email: this.state.userSignUp.txtEmail
+        }
+        this.props.signUp(userSignUp);
     };
 
     render() {
-        // if (localStorage.getItem('token')) {
-        //     return <Redirect to='/' />;
-        // }
-        // else {
+        if (localStorage.getItem('token')) {
+            return <Redirect to='/' />;
+        }
+        else {
             return (
                 <div className="register-frm">
                     <div className="container">
@@ -179,7 +176,7 @@ class Register extends React.Component {
                     </div>
                 </div>
             )
-        // }
+        }
     }
 }
 
@@ -191,4 +188,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(null,mapDispatchToProps)(Register);
+export default connect(null, mapDispatchToProps)(Register);

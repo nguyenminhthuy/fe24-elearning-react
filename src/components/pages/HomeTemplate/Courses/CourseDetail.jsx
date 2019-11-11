@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import { Breadcrumb, Tabs, Button } from 'antd';
 import CoursePopular from './CoursePopular';
 
 //connect redux
 import { connect } from 'react-redux';
-import { getCoursesDetailAction } from '../../../../redux/actions/ManageCoursesAction';
+import { getCoursesDetailAction, registerCoursebyUserAction } from '../../../../redux/actions/ManageCoursesAction';
 
 //Tabpane
 const { TabPane } = Tabs;
@@ -14,11 +15,27 @@ function callback() {
 }
 
 class CourseDetail extends Component {
-    
+
     componentDidMount() {
         let { maKhoaHoc } = this.props.match.params;
         this.props.getCoursesDetail(maKhoaHoc);
     }
+
+    handleOnSubmit = (e) => {
+        e.preventDefault();
+        if (localStorage.getItem('token')) {
+            let TTDK = {
+                maKhoaHoc: this.props.match.params.maKhoaHoc,
+                taiKhoan: JSON.parse(localStorage.getItem('userLogin')).taiKhoan
+            }
+            this.props.registerCoursebyUser(TTDK);
+        }
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Vui lòng đăng nhập để thực hiện chức năng này',
+          })
+    };
 
     render() {
         const { courseDetailByID } = this.props;
@@ -58,7 +75,8 @@ class CourseDetail extends Component {
                                 <p>Ngày tạo: {courseDetailByID.ngayTao}</p>
                                 <p>Số lượng học viên: {courseDetailByID.soLuongHocVien}</p>
                                 <p>Thời gian: Liên hệ</p>
-                                <Button type="primary" size='large' block>
+                                <Button type="primary" size='large'
+                                    block onClick={this.handleOnSubmit}>
                                     Ghi danh
                                 </Button>
                             </div>
@@ -69,7 +87,8 @@ class CourseDetail extends Component {
                                     {courseDetailByID.moTa}
                                 </TabPane>
                                 <TabPane tab="Hình ảnh khóa học" key="2">
-                                    <img src={courseDetailByID.hinhAnh} alt="" style={{ width: '100%', height: '100%' }} />
+                                    <img src={courseDetailByID.hinhAnh} alt="" 
+                                    style={{ width: '100%', height: '100%' }} />
                                 </TabPane>
                                 <TabPane tab="Cảm nhận học viên" key="3">
                                     Đang cập nhật...
@@ -81,7 +100,7 @@ class CourseDetail extends Component {
                 </div>
                 <div>
                     {/* <CourseOwlCarousel /> */}
-                    <CoursePopular/>
+                    <CoursePopular />
                 </div>
             </div>
         )
@@ -97,7 +116,10 @@ const mapDispatchToProp = (dispatch) => {
     return {
         getCoursesDetail: (maKhoaHoc) => {
             dispatch(getCoursesDetailAction(maKhoaHoc));
-        }
+        },
+        registerCoursebyUser: (TTDK) => {
+            dispatch(registerCoursebyUserAction(TTDK));
+        },
     }
 }
 

@@ -47,12 +47,6 @@ class CoursePopular extends Component {
     }
 
     render() {
-
-        // let obj = this.props.coursePopular;
-        // console.log(obj);
-        // var obj2 = new Object(obj.items);
-        // console.log(obj2);
-
         return (
             <div>
                 <h2 className="m-5 text-center">Các khóa học phổ biến</h2>

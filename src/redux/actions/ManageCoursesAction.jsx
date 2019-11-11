@@ -1,5 +1,6 @@
 import * as types from '../constants/ManageCoursesConstant';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import { settings } from '../../config/setting'
 
 export const getCoursesCategoryAction = () => {
@@ -18,7 +19,7 @@ export const getCoursesCategoryAction = () => {
         })
     }
 }
- 
+
 export const getCoursesListAction = () => {
     return dispatch => {
         axios({
@@ -45,7 +46,7 @@ export const getCoursesByCatAction = (courseCat) => {
             dispatch({
                 type: types.GET_COURSE_BY_CAT,
                 courseByCat: result.data
-            })            
+            })
         }).catch((errors) => {
             console.log(errors.response.data);
         })
@@ -61,7 +62,7 @@ export const getCoursesDetailAction = (courseID) => {
             dispatch({
                 type: types.GET_COURSE_DETAIL,
                 courseDetailByID: result.data
-            })            
+            })
         }).catch((errors) => {
             console.log(errors.response.data);
         })
@@ -81,6 +82,35 @@ export const getCoursesListByKeySearchAction = (keySearch) => {
             })
         }).catch((errors) => {
             console.log(errors.response.data);
+        })
+    }
+}
+
+export const registerCoursebyUserAction = (TTDK) => {
+    return dispatch => {
+        axios({
+            url: settings.domain + `/QuanLyKhoaHoc/DangKyKhoaHoc`,
+            method: 'POST',
+            data: TTDK,
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem(settings.token)
+            }
+        }).then(result => {
+            // console.log(result);
+            Swal.fire({
+                icon: 'success',
+                title: 'Thông báo!',
+                text: result.response.data,
+              }).then(result => {
+                window.location.href = '/';
+              });
+        }).catch((errors) => {
+            // console.log(errors.response.data);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: errors.response.data,
+              })
         })
     }
 }
