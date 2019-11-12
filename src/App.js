@@ -11,6 +11,14 @@ import CourseList from './components/pages/HomeTemplate/Courses/CourseList';
 import CourseDetail from './components/pages/HomeTemplate/Courses/CourseDetail';
 import AllCourses from './components/pages/HomeTemplate/Courses/AllCourses';
 import SearchResult from './components/pages/HomeTemplate/Pages/SearchResult';
+import { UserTemplate } from './components/Template/UserTemplate';
+import UserPage from './components/pages/UserTemplate/UserPage';
+import ManageCoursebyUser from './components/pages/UserTemplate/Pages/ManageCoursebyUser';
+import AdminPage from './components/pages/AdminTemplate/AdminPage';
+import { AdminTemplate } from './components/Template/AdminTemplate';
+import ManageCourse from './components/pages/AdminTemplate/Pages/ManageCourse';
+import ManageCourseList from './components/pages/AdminTemplate/Pages/ManageCourseList';
+import ManageUser from './components/pages/AdminTemplate/Pages/ManageUser';
 
 function App() {
   return (
@@ -25,6 +33,14 @@ function App() {
           <HomeTemplate exact path='/login' Component={Login} />
           <HomeTemplate exact path='/search-result/:keySearch' Component={SearchResult} />
           <HomeTemplate exact path='/' Component={HomePage} />
+
+          <UserTemplate exact path='/user/userprofile' Component={UserPage} />
+          <UserTemplate exact path='/user/usercourse' Component={ManageCoursebyUser} />
+
+          <AdminTemplate exact path='/admin/adminprofile' Component={AdminPage} />
+          <AdminTemplate exact path='/admin/managecourse' Component={ManageCourse} />
+          <AdminTemplate exact path='/admin/managecourselist' Component={ManageCourseList} />
+          <AdminTemplate exact path='/admin/manageuser' Component={ManageUser} />
           <Redirect to='/'/>
         </Switch>
       </Fragment>

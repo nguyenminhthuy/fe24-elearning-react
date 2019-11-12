@@ -2,10 +2,10 @@ import React, { Fragment } from 'react';
 import { Route } from 'react-router-dom';
 import NavBarMenu from '../pages/HomeTemplate/NavBarMenu/NavBarMenu';
 import { Layout, BackTop,Menu } from 'antd';
-import AdminSideBar from '../pages/AdminTemplate/Pages/AdminSideBar';
+import SideBar from '../pages/UserTemplate/Pages/SideBar';
 const { Header, Content,Footer } = Layout;
 
-const AdminLayout = (props) => {
+const UserLayout = (props) => {
     return (
         <Fragment>
             <BackTop style={{ color: 'rgba(64, 64, 64, 0.6)' }} />
@@ -21,7 +21,7 @@ const AdminLayout = (props) => {
                     </Menu>
                 </Header>
                 <Layout>
-                    <AdminSideBar />
+                    <SideBar />
                     <Layout style={{ padding: '24px 24px 0' }}>
                         <Content
                             style={{
@@ -41,14 +41,14 @@ const AdminLayout = (props) => {
 }
 
 
-//Tạo HOC AdminTemplate 
-export const AdminTemplate = ({ Component, ...restParam }) => {
+//Tạo HOC UserTemplate 
+export const UserTemplate = ({ Component, ...restParam }) => {
     return (
         <Route {...restParam} render={(props) => {
             return (
-                <AdminLayout>
+                <UserLayout>
                     <Component {...props} />
-                </AdminLayout>
+                </UserLayout>
             )
         }} />
     )

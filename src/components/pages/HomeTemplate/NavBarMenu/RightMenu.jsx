@@ -7,9 +7,9 @@ const { Search } = Input;
 const normalUser = (
   <Menu>
     <Menu.Item key="0">
-      <a target="_blank" rel="noopener noreferrer" href="#">
+      <NavLink exact to='/user/userprofile'>
         <Icon type="user" />&nbsp;&nbsp;Trang cá nhân
-      </a>
+      </NavLink>
     </Menu.Item>
     <Menu.Divider />
     <Menu.Item key="1">
@@ -24,9 +24,9 @@ const normalUser = (
 const adminUser = (
   <Menu>
     <Menu.Item key="0">
-      <a target="_blank" rel="noopener noreferrer" href="#">
+      <NavLink exact to='/admin/adminprofile'>
         <Icon type="user" />&nbsp;&nbsp;Trang quản lý
-      </a>
+      </NavLink>
     </Menu.Item>
     <Menu.Divider />
     <Menu.Item key="1">
