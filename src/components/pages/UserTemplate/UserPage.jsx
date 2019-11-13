@@ -1,11 +1,180 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Button, Alert } from 'antd';
+// import { signUpAction } from '../../../../redux/actions/ManageUserAction';
+import { settings } from './../../../config/setting'
 
-export default class UserPage extends Component {
+const styles = {
+    form: {
+        textAlign: 'center'
+    }
+}
+
+class UserPage extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            userUpdate: {
+                txtUsername: '',
+                txtPassword: '',
+                txtName: '',
+                txtPhone: '',
+                txtEmail: '',
+                maNhom: settings.groupID
+            },
+            errors: {
+                txtUsername: '',
+                txtPassword: '',
+                txtName: '',
+                txtPhone: '',
+                txtEmail: ''
+            }
+        }
+    }
+
+    handleOnChange = (e) => {
+        let { name, value } = e.target;
+        this.setState({
+            userUpdate: { ...this.state.userUpdate, [name]: value }
+        }, () => {
+            // console.log(this.state);
+        })
+    };
+
+    validateInput = (e) => {
+        let { name, value, type } = e.target;
+        let errorMessage = '';
+        if (value === '') {
+            errorMessage = `Thông tin này là bắt buộc. Vui lòng điền đầy đủ thông tin.`;
+        }
+        if (type === 'email') {
+            let pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            if (!pattern.test(value)) {
+                errorMessage = 'Email không hợp lệ. Vui lòng kiểm tra dữ liệu.';
+            }
+        }
+        if (name === 'txtPhone') {
+            let pattern = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+            if (!pattern.test(value)) {
+                errorMessage = 'Số điện thoại không hợp lệ. Vui lòng kiểm tra dữ liệu.';
+            }
+        }
+        this.setState({
+            errors: { ...this.state.errors, [name]: errorMessage }
+        }, () => {
+            // console.log(this.state) 
+        })
+    }
+
+    handleOnSubmit = (e) => {
+        e.preventDefault();
+        let userUpdate = {
+            taiKhoan: this.state.userUpdate.txtUsername,
+            matKhau: this.state.userUpdate.txtPassword,
+            hoTen: this.state.userUpdate.txtName,
+            soDT: this.state.userUpdate.txtPhone,
+            maNhom: settings.groupID,
+            email: this.state.userUpdate.txtEmail
+        }
+        console.log(userUpdate);
+        // this.props.signUp(userUpdate);
+    };
+
     render() {
         return (
-            <div>
-                User profile
+            <div className="UserPage-frm">
+                <div className="container">
+                    <h3>Cập nhật tài khoản</h3>
+                    <hr />
+                    <div className="row">
+                        <div className="col-6 ml-5 mt-3">
+                            <form style={styles.form} onSubmit={this.handleOnSubmit}>
+                                <div className='form-group row'>
+                                    <p>Tài khoản</p>
+                                    <input name="txtUsername"
+                                        onChange={this.handleOnChange}
+                                        value={this.state.userUpdate.txtUsername}
+                                        onBlur={this.validateInput}
+                                        onKeyUp={this.validateInput}
+                                        onKeyPress={this.validateInput}
+                                        className='input' type='text'
+                                        placeholder='Tài khoản'
+                                        disabled />
+                                </div>
+                                <div className='form-group row'>
+                                    {this.state.errors.txtUsername ?
+                                        <Alert message={this.state.errors.txtUsername} type="error" /> : ''}
+                                </div>
+                                <div className='form-group row'>
+                                    <p>Mật khẩu</p>
+                                    <input name="txtPassword"
+                                        onChange={this.handleOnChange}
+                                        value={this.state.userUpdate.txtPassword}
+                                        onBlur={this.validateInput}
+                                        onKeyUp={this.validateInput}
+                                        onKeyPress={this.validateInput}
+                                        className='input' type='password' placeholder='Mật khẩu' />
+                                </div>
+                                <div className='form-group row'>
+                                    {this.state.errors.txtPassword ?
+                                        <Alert message={this.state.errors.txtPassword} type="error" /> : ''}
+                                </div>
+                                <div className='form-group row'>
+                                    <p>Họ tên</p>
+                                    <input name="txtName"
+                                        onChange={this.handleOnChange}
+                                        value={this.state.userUpdate.txtName}
+                                        onBlur={this.validateInput}
+                                        onKeyUp={this.validateInput}
+                                        onKeyPress={this.validateInput}
+                                        className='input' type='text'
+                                        placeholder='Họ tên' />
+                                </div>
+                                <div className='form-group row'>
+                                    {this.state.errors.txtName ?
+                                        <Alert message={this.state.errors.txtName} type="error" /> : ''}
+                                </div>
+                                <div className='form-group row'>
+                                    <p>Số điện thoại</p>
+                                    <input name="txtPhone"
+                                        onChange={this.handleOnChange}
+                                        value={this.state.userUpdate.txtPhone}
+                                        onBlur={this.validateInput}
+                                        onKeyUp={this.validateInput}
+                                        onKeyPress={this.validateInput}
+                                        className='input' type='text'
+                                        placeholder='Số điện thoại' />
+                                </div>
+                                <div className='form-group row'>
+                                    {this.state.errors.txtPhone ?
+                                        <Alert message={this.state.errors.txtPhone} type="error" /> : ''}
+                                </div>
+                                <div className='form-group row'>
+                                    <p>Email</p>
+                                    <input name="txtEmail"
+                                        onChange={this.handleOnChange}
+                                        value={this.state.userUpdate.txtEmail}
+                                        onBlur={this.validateInput}
+                                        onKeyUp={this.validateInput}
+                                        onKeyPress={this.validateInput}
+                                        className='input' type='email' placeholder='Email' />
+                                </div>
+                                <div className='form-group row'>
+                                    {this.state.errors.txtEmail ?
+                                        <Alert message={this.state.errors.txtEmail} type="error" /> : ''}
+                                </div>
+                                <div className='form-group row'>
+                                    <button className='btn' type='submit'>Cập nhật thông tin</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }
 }
+
+export default (UserPage);

@@ -75,12 +75,12 @@ class RightMenu extends Component {
                   {userInfo.maLoaiNguoiDung === "GV" ?
                     <Dropdown overlay={adminUser}>
                       <a className="ant-dropdown-link" href="#">
-                        <Avatar>U</Avatar>&nbsp;&nbsp;Chào {userInfo.taiKhoan}
+                        <Avatar>U</Avatar>&nbsp;&nbsp;Chào {userInfo.hoTen}
                       </a>
                     </Dropdown> :
                     <Dropdown overlay={normalUser}>
                       <a className="ant-dropdown-link" href="#">
-                        <Avatar>U</Avatar>&nbsp;&nbsp;Chào {userInfo.taiKhoan}
+                        <Avatar>U</Avatar>&nbsp;&nbsp;Chào {userInfo.hoTen}
                       </a>
                     </Dropdown>}
                 </Menu.Item> :
