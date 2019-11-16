@@ -6,6 +6,8 @@ const { Sider } = Layout;
 
 export default class AdminSideBar extends Component {
     render() {
+        let userInfo = JSON.parse(localStorage.getItem('userLogin'));
+
         return (
             <Sider width={280} style={{ background: '#fff', height: 1000 }}>
                 <Menu
@@ -16,13 +18,20 @@ export default class AdminSideBar extends Component {
                 >
                     <div className="card">
                         <i className="fa fa-user-circle card_icon pb-3"></i>
-                        <h3>Full name</h3>
+                        <h4>{userInfo.hoTen}&nbsp;
+                        <Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" /></h4>         
                         <h6>Giáo vụ</h6>
-                    </div>
+                    </div>                    
                     <Menu.Item>
-                        <NavLink exact to='/admin/adminprofile'>
-                            <Icon type="user" />
+                        <NavLink exact to='/admin/profile'>
+                            <Icon type="profile" />
                             Hồ sơ cá nhân
+                        </NavLink>
+                    </Menu.Item>
+                    <Menu.Item>
+                        <NavLink exact to='/admin/manageuser'>
+                            <Icon type="solution" />
+                            Quản lý người dùng
                         </NavLink>
                     </Menu.Item>
                     <Menu.Item>
@@ -36,13 +45,7 @@ export default class AdminSideBar extends Component {
                             <Icon type="appstore" />
                             Quản lý khóa học
                         </NavLink>
-                    </Menu.Item>
-                    <Menu.Item>
-                        <NavLink exact to='/admin/manageuser'>
-                            <Icon type="solution" />
-                            Quản lý học viên
-                        </NavLink>
-                    </Menu.Item>
+                    </Menu.Item>                    
                 </Menu>
             </Sider>
         )

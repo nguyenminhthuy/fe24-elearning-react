@@ -1,3 +1,4 @@
+import * as types from '../constants/ManageUserConstant';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { settings } from '../../config/setting'
@@ -51,6 +52,37 @@ export const signUpAction = (userSignUp) => {
   }
 }
 
+export const updateProfileAction = (userUpdate) => {
+  return () => {
+    axios({
+      url: settings.domain + `/QuanLyNguoiDung/CapNhatThongTinNguoiDung`,
+      method: 'PUT',
+      data: userUpdate,
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem(settings.token)
+      }
+    }).then(result => {
+      // console.log(result.data);   
+      Swal.fire({
+        icon: 'success',
+        title: 'Thông báo',
+        text: 'Cập nhật thông tin tài khoản thành công.',
+      }).then(resultdata => {
+        window.location.reload()
+      });
+    }).catch(errors => {
+      // console.log(errors.response.data)
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: errors.response.data,
+      }).then(resultdata => {
+        window.location.reload()
+      });
+    })
+  }
+}
+
 export const addUserAction = (userObject) => {
   return () => {
     axios({
@@ -65,6 +97,23 @@ export const addUserAction = (userObject) => {
     }).catch(errors => {
       console.log(errors.response.data)
     })
+  }
+}
+
+export const getUserListAction = () => {
+  return dispatch => {
+      axios({
+          url: settings.domain + `/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=${settings.groupID}`,
+          method: 'GET'
+      }).then(result => {
+          console.log(result);
+          dispatch({
+              type: types.GET_USER_LIST,
+              userList: result.data
+          })
+      }).catch((errors) => {
+          console.log(errors.response.data);
+      })
   }
 }
 

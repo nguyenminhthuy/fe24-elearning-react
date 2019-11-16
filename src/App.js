@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Switch } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.scss';
@@ -34,10 +34,10 @@ function App() {
           <HomeTemplate exact path='/search-result/:keySearch' Component={SearchResult} />
           <HomeTemplate exact path='/' Component={HomePage} />
 
-          <UserTemplate exact path='/user/userprofile' Component={UserPage} />
+          <UserTemplate exact path='/user/profile' Component={UserPage} />
           <UserTemplate exact path='/user/usercourse' Component={ManageCoursebyUser} />
 
-          <AdminTemplate exact path='/admin/adminprofile' Component={AdminPage} />
+          <AdminTemplate exact path='/admin/profile' Component={AdminPage} />
           <AdminTemplate exact path='/admin/managecourse' Component={ManageCourse} />
           <AdminTemplate exact path='/admin/managecourselist' Component={ManageCourseList} />
           <AdminTemplate exact path='/admin/manageuser' Component={ManageUser} />

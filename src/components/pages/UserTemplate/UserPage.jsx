@@ -1,8 +1,7 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Button, Alert } from 'antd';
-// import { signUpAction } from '../../../../redux/actions/ManageUserAction';
+import { Alert } from 'antd';
+import { updateProfileAction } from './../../../redux/actions/ManageUserAction';
 import { settings } from './../../../config/setting'
 
 const styles = {
@@ -14,15 +13,17 @@ const styles = {
 class UserPage extends React.Component {
 
     constructor(props) {
+        let userInfo = JSON.parse(localStorage.getItem('userLogin'));
         super(props);
         this.state = {
             userUpdate: {
-                txtUsername: '',
+                txtUsername: userInfo.taiKhoan,
                 txtPassword: '',
-                txtName: '',
-                txtPhone: '',
-                txtEmail: '',
-                maNhom: settings.groupID
+                txtName: userInfo.hoTen,
+                txtPhone: userInfo.soDT,
+                txtEmail: userInfo.email,
+                maNhom: settings.groupID,
+                maLoaiNguoiDung: userInfo.maLoaiNguoiDung
             },
             errors: {
                 txtUsername: '',
@@ -69,6 +70,7 @@ class UserPage extends React.Component {
     }
 
     handleOnSubmit = (e) => {
+        let userInfo = JSON.parse(localStorage.getItem('userLogin'));
         e.preventDefault();
         let userUpdate = {
             taiKhoan: this.state.userUpdate.txtUsername,
@@ -76,10 +78,10 @@ class UserPage extends React.Component {
             hoTen: this.state.userUpdate.txtName,
             soDT: this.state.userUpdate.txtPhone,
             maNhom: settings.groupID,
-            email: this.state.userUpdate.txtEmail
+            email: this.state.userUpdate.txtEmail,
+            maLoaiNguoiDung: userInfo.maLoaiNguoiDung
         }
-        console.log(userUpdate);
-        // this.props.signUp(userUpdate);
+        this.props.updateProfile(userUpdate);
     };
 
     render() {
@@ -166,7 +168,7 @@ class UserPage extends React.Component {
                                         <Alert message={this.state.errors.txtEmail} type="error" /> : ''}
                                 </div>
                                 <div className='form-group row'>
-                                    <button className='btn' type='submit'>Cập nhật thông tin</button>
+                                    <button className='btn' type='submit'>Cập nhật tài khoản</button>
                                 </div>
                             </form>
                         </div>
@@ -177,4 +179,12 @@ class UserPage extends React.Component {
     }
 }
 
-export default (UserPage);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        updateProfile: (userUpdate) => {
+            dispatch(updateProfileAction(userUpdate));
+        }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(UserPage);
