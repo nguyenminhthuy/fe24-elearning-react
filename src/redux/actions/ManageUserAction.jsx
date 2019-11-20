@@ -23,9 +23,7 @@ export const loginAction = (userLogin) => {
         icon: 'error',
         title: 'Oops...',
         text: errors.response.data,
-      }).then(resultdata => {
-        window.location.reload()
-      });
+      })
     })
   }
 }
@@ -45,9 +43,7 @@ export const signUpAction = (userSignUp) => {
         icon: 'error',
         title: 'Oops...',
         text: errors.response.data,
-      }).then(resultdata => {
-        window.location.reload()
-      });
+      })
     })
   }
 }
@@ -76,10 +72,30 @@ export const updateProfileAction = (userUpdate) => {
         icon: 'error',
         title: 'Oops...',
         text: errors.response.data,
-      }).then(resultdata => {
-        window.location.reload()
-      });
+      })
     })
+  }
+}
+
+export const getUserListAction = () => {
+  return dispatch => {
+      axios({
+          url: settings.domain + `/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=${settings.groupID}`,
+          method: 'GET'
+      }).then(result => {
+          // console.log(result);
+          dispatch({
+              type: types.GET_USER_LIST,
+              userList: result.data
+          })
+      }).catch((errors) => {
+          // console.log(errors.response.data);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: errors.response.data,
+          })
+      })
   }
 }
 
@@ -93,28 +109,48 @@ export const addUserAction = (userObject) => {
         Authorization: 'Bearer ' + localStorage.getItem(settings.token)
       }
     }).then(result => {
-      console.log(result.data);
+      Swal.fire({
+        icon: 'success',
+        title: 'Thông báo',
+        text: 'Thêm người dùng thành công.',
+      }).then(resultdata => {
+        window.location.reload()
+      });
     }).catch(errors => {
-      console.log(errors.response.data)
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: errors.response.data,
+      })
     })
   }
 }
 
-export const getUserListAction = () => {
-  return dispatch => {
-      axios({
-          url: settings.domain + `/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=${settings.groupID}`,
-          method: 'GET'
-      }).then(result => {
-          console.log(result);
-          dispatch({
-              type: types.GET_USER_LIST,
-              userList: result.data
-          })
-      }).catch((errors) => {
-          console.log(errors.response.data);
+export const deleteUserAction = (userAccount) => {
+  return () => {
+    axios({
+      url: settings.domain + `/QuanLyNguoiDung/XoaNguoiDung?TaiKhoan=${userAccount}`,
+      method: 'DELETE',
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem(settings.token)
+      }
+    }).then(result => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Thông báo',
+        text: 'Xóa người dùng thành công.',
+      }).then(resultdata => {
+        window.location.reload()
+      });
+    }).catch(errors => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: errors.response.data,
       })
+    })
   }
 }
+
 
 

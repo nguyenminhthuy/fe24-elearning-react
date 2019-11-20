@@ -19,6 +19,7 @@ import { AdminTemplate } from './components/Template/AdminTemplate';
 import ManageCourse from './components/pages/AdminTemplate/Pages/ManageCourse';
 import ManageCourseList from './components/pages/AdminTemplate/Pages/ManageCourseList';
 import ManageUser from './components/pages/AdminTemplate/Pages/ManageUser';
+import ModalAddUser from './components/pages/UserTemplate/Pages/ModalAddUser';
 
 function App() {
   return (
@@ -39,7 +40,7 @@ function App() {
 
           <AdminTemplate exact path='/admin/profile' Component={AdminPage} />
           <AdminTemplate exact path='/admin/managecourse' Component={ManageCourse} />
-          <AdminTemplate exact path='/admin/managecourselist' Component={ManageCourseList} />
+          <AdminTemplate exact path='/admin/managecourselist' Component={ModalAddUser} />
           <AdminTemplate exact path='/admin/manageuser' Component={ManageUser} />
           <Redirect to='/'/>
         </Switch>
