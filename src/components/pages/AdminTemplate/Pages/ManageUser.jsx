@@ -6,8 +6,8 @@ import Swal from 'sweetalert2';
 import { connect } from 'react-redux';
 import { getUserListAction } from '../../../../redux/actions/ManageUserAction';
 import { deleteUserAction } from '../../../../redux/actions/ManageUserAction';
-import ModalAddUser from '../../UserTemplate/Pages/ModalAddUser';
-import ModalUpdateUser from '../../UserTemplate/Pages/ModalUpdateUser';
+import ModalAddUser from '../Modal/ModalAddUser';
+import ModalUpdateUser from '../Modal/ModalUpdateUser';
 
 class ManageUser extends Component {
 
@@ -20,16 +20,13 @@ class ManageUser extends Component {
             editUserVisible: false,
             userInfo: {
                 taiKhoan: '',
-                matKhau: '',
                 hoTen: '',
-                soDt: '',
+                soDT: '',
                 email: '',
                 maLoaiNguoiDung: ''
             }
         }
     }
-
-
 
     //Add User Modal
     showAddUserModal = () => {
@@ -55,24 +52,29 @@ class ManageUser extends Component {
             editUserVisible: true,
             userInfo: {
                 taiKhoan: userInfo.taiKhoan,
-                matKhau: userInfo.matKhau,
                 hoTen: userInfo.hoTen,
-                soDt: userInfo.soDt,
+                soDT: userInfo.soDt,
                 email: userInfo.email,
-                maLoaiNguoiDung: ''
+                maLoaiNguoiDung: userInfo.maLoaiNguoiDung
             }
+        }, () => {
+            // console.log(this.state.userInfo);
         });
     };
 
     handleOkOnEdit = () => {
         this.setState({ editUserLoading: true });
         setTimeout(() => {
-            this.setState({ editUserLoading: false, editUserVisible: false });
+            this.setState({ 
+                editUserLoading: false, editUserVisible: false
+            });
         }, 3000);
     };
 
     handleCancelOnEdit = () => {
-        this.setState({ editUserVisible: false });
+        this.setState({ 
+            editUserVisible: false
+        });
     };
 
     componentDidMount() {
@@ -86,7 +88,7 @@ class ManageUser extends Component {
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Xóa người dùng'
+            confirmButtonText: 'Xác nhận'
         }).then((result) => {
             if (result.value) {
                 this.props.deleteUser(username);
@@ -97,7 +99,7 @@ class ManageUser extends Component {
     renderAllUser() {
         return this.props.userList.map((userInfo, index) => {
             return (
-                <tr>
+                <tr key={index}>
                     <td>{userInfo.taiKhoan}</td>
                     <td>{userInfo.hoTen}</td>
                     <td>{userInfo.email}</td>
@@ -132,7 +134,7 @@ class ManageUser extends Component {
     }
 
     renderEditUserModal() {
-        const { editUserVisible, editUserLoading, userInfo } = this.state;
+        const { editUserVisible, editUserLoading,userInfo } = this.state;
         return (
             <Modal
                 width='40%'
@@ -143,7 +145,7 @@ class ManageUser extends Component {
                 onCancel={this.handleCancelOnEdit}
                 footer={null}
             >
-                <ModalUpdateUser userInfo={userInfo} />
+                <ModalUpdateUser userInfo={this.state.userInfo} />
             </Modal>
         )
     }

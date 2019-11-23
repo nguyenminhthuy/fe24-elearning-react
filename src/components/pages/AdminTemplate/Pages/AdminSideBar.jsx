@@ -35,12 +35,6 @@ export default class AdminSideBar extends Component {
                         </NavLink>
                     </Menu.Item>
                     <Menu.Item>
-                        <NavLink exact to='/admin/managecourselist'>
-                            <Icon type="code" />
-                            Quản lý danh mục khóa học
-                        </NavLink>
-                    </Menu.Item>
-                    <Menu.Item>
                         <NavLink exact to='/admin/managecourse'>
                             <Icon type="appstore" />
                             Quản lý khóa học

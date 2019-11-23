@@ -114,3 +114,29 @@ export const registerCoursebyUserAction = (TTDK) => {
         })
     }
 }
+
+export const deleteCourseAction = (courseID) => {
+    return () => {
+      axios({
+        url: settings.domain + `/QuanLyKhoaHoc/XoaKhoaHoc?MaKhoaHoc=${courseID}`,
+        method: 'DELETE',
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem(settings.token)
+        }
+      }).then(result => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Thông báo',
+          text: 'Xóa khóa học thành công.',
+        }).then(resultdata => {
+          window.location.reload()
+        });
+      }).catch(errors => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: errors.response.data,
+        })
+      })
+    }
+  }
